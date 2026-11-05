@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Аренда - Форма</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+        .container { max-width: 500px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn { padding: 10px 20px; margin-top: 20px; border: none; border-radius: 4px; color: white; cursor: pointer; font-size: 16px; }
+        .btn-save { background-color: #28a745; }
+        .btn-cancel { background-color: #6c757d; text-decoration: none; display: inline-block; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Аренда</h1>
+    <form th:action="@{/rents/save}" method="post" th:object="${rent}">
+        <input type="hidden" th:field="*{id}"/>
+
+        <label>Квартира:</label>
+        <select th:field="*{apartment.id}" required>
+            <option value="">-- Выберите квартиру --</option>
+            <option th:each="apartment : ${apartments}"
+                    th:value="${apartment.id}"
+                    th:text="${apartment.address}">ул. Ленина, д. 1</option>
+        </select>
+
+        <label>Имя арендатора:</label>
+        <input type="text" th:field="*{tenantName}" required/>
+
+        <label>Дата начала:</label>
+        <input type="date" th:field="*{startDate}" required/>
+
+        <label>Дата окончания:</label>
+        <input type="date" th:field="*{endDate}" required/>
+
+        <button type="submit" class="btn btn-save">Сохранить</button>
+        <a href="/rents" class="btn btn-cancel">Отмена</a>
+    </form>
+</div>
+</body>
+</html>

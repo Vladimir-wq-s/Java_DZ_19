@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Квартиры</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+        th { background-color: #007bff; color: white; }
+        .btn { padding: 6px 12px; text-decoration: none; border-radius: 4px; color: white; font-size: 14px; margin-right: 5px; }
+        .btn-add { background-color: #28a745; }
+        .btn-edit { background-color: #ffc107; color: black; }
+        .btn-delete { background-color: #dc3545; }
+        .nav a { margin-right: 15px; text-decoration: none; color: #007bff; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav">
+        <a href="/">Главная</a>
+        <a href="/landlords">Арендодатели</a>
+        <a href="/apartments">Квартиры</a>
+        <a href="/rents">Аренда</a>
+    </div>
+
+    <h1>Квартиры</h1>
+    <a href="/apartments/new" class="btn btn-add">+ Добавить квартиру</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Адрес</th>
+            <th>Комнат</th>
+            <th>Цена (мес)</th>
+            <th>Арендодатель</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="apartment : ${apartments}">
+            <td th:text="${apartment.id}">1</td>
+            <td th:text="${apartment.address}">ул. Ленина, д. 1</td>
+            <td th:text="${apartment.rooms}">2</td>
+            <td th:text="${apartment.monthlyPrice}">30000</td>
+            <td th:text="${apartment.landlord.fullName}">Иванов Иван</td>
+            <td>
+                <a th:href="@{/apartments/edit/{id}(id=${apartment.id})}" class="btn btn-edit">Редактировать</a>
+                <a th:href="@{/apartments/delete/{id}(id=${apartment.id})}" class="btn btn-delete" onclick="return confirm('Вы уверены?')">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

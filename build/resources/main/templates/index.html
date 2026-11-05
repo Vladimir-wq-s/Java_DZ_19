@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Аренда - Главная</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 15px; text-decoration: none; color: #007bff; font-weight: bold; }
+        .nav a:hover { text-decoration: underline; }
+        .stats { display: flex; justify-content: space-around; margin-top: 30px; }
+        .stat-box { background: #e9ecef; padding: 20px; border-radius: 8px; text-align: center; width: 30%; }
+        .stat-box h3 { margin: 0 0 10px 0; color: #555; }
+        .stat-box p { font-size: 24px; font-weight: bold; color: #28a745; margin: 0; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Система управления арендой</h1>
+    <div class="nav">
+        <a href="/landlords">Арендодатели</a>
+        <a href="/apartments">Квартиры</a>
+        <a href="/rents">Аренда</a>
+    </div>
+
+    <h2>Статистика по ценам (Задание 4)</h2>
+    <div class="stats">
+        <div class="stat-box">
+            <h3>Средняя цена</h3>
+            <p th:text="${avgPrice != null} ? ${avgPrice} : 'Нет данных'">0</p>
+        </div>
+        <div class="stat-box">
+            <h3>Максимальная цена</h3>
+            <p th:text="${maxPrice != null} ? ${maxPrice} : 'Нет данных'">0</p>
+        </div>
+        <div class="stat-box">
+            <h3>Минимальная цена</h3>
+            <p th:text="${minPrice != null} ? ${minPrice} : 'Нет данных'">0</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

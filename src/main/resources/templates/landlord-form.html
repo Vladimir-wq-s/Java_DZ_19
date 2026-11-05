@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Арендодатель - Форма</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+        .container { max-width: 500px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn { padding: 10px 20px; margin-top: 20px; border: none; border-radius: 4px; color: white; cursor: pointer; font-size: 16px; }
+        .btn-save { background-color: #28a745; }
+        .btn-cancel { background-color: #6c757d; text-decoration: none; display: inline-block; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Арендодатель</h1>
+    <form th:action="@{/landlords/save}" method="post" th:object="${landlord}">
+        <input type="hidden" th:field="*{id}"/>
+
+        <label>ФИО:</label>
+        <input type="text" th:field="*{fullName}" required/>
+
+        <label>Телефон:</label>
+        <input type="text" th:field="*{phone}" required/>
+
+        <button type="submit" class="btn btn-save">Сохранить</button>
+        <a href="/landlords" class="btn btn-cancel">Отмена</a>
+    </form>
+</div>
+</body>
+</html>
