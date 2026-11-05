@@ -27,4 +27,12 @@ public class Apartment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landlord_id", nullable = false)
     private Landlord landlord;
+
+
+    @Column(nullable = false)
+    private boolean isTop = false;
+
+
+    @Column(nullable = false)
+    private boolean archived = false;
 }

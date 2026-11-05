@@ -16,13 +16,12 @@ public class LandlordController {
         this.landlordRepository = landlordRepository;
     }
 
-
     @GetMapping
     public String listLandlords(Model model) {
-        model.addAttribute("landlords", landlordRepository.findAll());
+
+        model.addAttribute("landlords", landlordRepository.findAllByArchivedFalse());
         return "landlords";
     }
-
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
@@ -30,13 +29,11 @@ public class LandlordController {
         return "landlord-form";
     }
 
-
     @PostMapping("/save")
     public String saveLandlord(@ModelAttribute Landlord landlord) {
         landlordRepository.save(landlord);
         return "redirect:/landlords";
     }
-
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
@@ -46,10 +43,12 @@ public class LandlordController {
         return "landlord-form";
     }
 
-
     @GetMapping("/delete/{id}")
-    public String deleteLandlord(@PathVariable Long id) {
-        landlordRepository.deleteById(id);
+    public String archiveLandlord(@PathVariable Long id) {
+
+        Landlord landlord = landlordRepository.findById(id).orElseThrow();
+        landlord.setArchived(true);
+        landlordRepository.save(landlord);
         return "redirect:/landlords";
     }
 }

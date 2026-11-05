@@ -21,14 +21,15 @@ public class ApartmentController {
 
     @GetMapping
     public String listApartments(Model model) {
-        model.addAttribute("apartments", apartmentRepository.findAll());
+
+        model.addAttribute("apartments", apartmentRepository.findAllByArchivedFalseOrderByIsTopDesc());
         return "apartments";
     }
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("apartment", new Apartment());
-        model.addAttribute("landlords", landlordRepository.findAll());
+        model.addAttribute("landlords", landlordRepository.findAllByArchivedFalse());
         return "apartment-form";
     }
 
@@ -43,13 +44,16 @@ public class ApartmentController {
         Apartment apartment = apartmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Apartment not found"));
         model.addAttribute("apartment", apartment);
-        model.addAttribute("landlords", landlordRepository.findAll());
+        model.addAttribute("landlords", landlordRepository.findAllByArchivedFalse());
         return "apartment-form";
     }
 
+
     @GetMapping("/delete/{id}")
-    public String deleteApartment(@PathVariable Long id) {
-        apartmentRepository.deleteById(id);
+    public String archiveApartment(@PathVariable Long id) {
+        Apartment apartment = apartmentRepository.findById(id).orElseThrow();
+        apartment.setArchived(true);
+        apartmentRepository.save(apartment);
         return "redirect:/apartments";
     }
 }

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Архив - Система управления арендой</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 30px; }
+        th, td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+        th { background-color: #6c757d; color: white; }
+        .nav a { margin-right: 15px; text-decoration: none; color: #007bff; font-weight: bold; }
+        h1 { color: #333; }
+        h2 { color: #555; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav">
+        <a href="/">Главная</a>
+        <a href="/landlords">Арендодатели</a>
+        <a href="/apartments">Квартиры</a>
+        <a href="/rents">Аренда</a>
+        <a href="/archive">Архив</a>
+    </div>
+
+    <h1>Архив удалённых записей</h1>
+
+    <h2>Арендодатели</h2>
+    <table th:if="${!landlords.isEmpty()}">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Телефон</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="landlord : ${landlords}">
+            <td th:text="${landlord.id}">1</td>
+            <td th:text="${landlord.fullName}">Иванов</td>
+            <td th:text="${landlord.phone}">+7...</td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${landlords.isEmpty()}" style="color: #888;">Нет архивных арендодателей.</p>
+
+    <h2>Квартиры</h2>
+    <table th:if="${!apartments.isEmpty()}">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Адрес</th>
+            <th>Комнат</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="apartment : ${apartments}">
+            <td th:text="${apartment.id}">1</td>
+            <td th:text="${apartment.address}">ул. Ленина</td>
+            <td th:text="${apartment.rooms}">2</td>
+            <td th:text="${apartment.monthlyPrice}">30000</td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${apartments.isEmpty()}" style="color: #888;">Нет архивных квартир.</p>
+
+    <h2>Аренда</h2>
+    <table th:if="${!rents.isEmpty()}">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Арендатор</th>
+            <th>Дата начала</th>
+            <th>Дата окончания</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rent : ${rents}">
+            <td th:text="${rent.id}">1</td>
+            <td th:text="${rent.tenantName}">Игорь</td>
+            <td th:text="${rent.startDate}">2026-01-01</td>
+            <td th:text="${rent.endDate}">2026-12-31</td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${rents.isEmpty()}" style="color: #888;">Нет архивных записей об аренде.</p>
+</div>
+</body>
+</html>

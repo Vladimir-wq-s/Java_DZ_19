@@ -29,4 +29,12 @@ public class Rent {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apartment_id", nullable = false)
     private Apartment apartment;
+
+
+    @Column(nullable = false)
+    private long rentalMonths = 0;
+
+
+    @Column(nullable = false)
+    private boolean archived = false;
 }

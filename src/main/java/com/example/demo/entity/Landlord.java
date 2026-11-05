@@ -20,4 +20,12 @@ public class Landlord {
 
     @Column(nullable = false)
     private String phone;
+
+
+    @Column(nullable = false)
+    private int rentedApartmentsCount = 0;
+
+
+    @Column(nullable = false)
+    private boolean archived = false;
 }
